@@ -1,5 +1,6 @@
 package entitys;
 
+import DAO.DAOException;
 import DAO.impl.DoctorDao;
 import DAO.impl.PatientDao;
 
@@ -115,7 +116,7 @@ public class HospitalCard {
     }
 
 
-    public String getDoctorNameById() {
+    public String getDoctorNameById() throws DAOException {
         Doctor doctor;
         DoctorDao doctorDao = new DoctorDao();
 
@@ -125,7 +126,7 @@ public class HospitalCard {
     }
 
 
-    public String getDoctorSurnameById() {
+    public String getDoctorSurnameById() throws DAOException {
         Doctor doctor;
         DoctorDao doctorDao = new DoctorDao();
 
@@ -133,7 +134,7 @@ public class HospitalCard {
 
         return doctorSurnameById =  doctor.getDoctorName();
     }
-    public String getDoctorCategoryById() {
+    public String getDoctorCategoryById() throws DAOException {
         Doctor doctor;
         DoctorDao doctorDao = new DoctorDao();
 

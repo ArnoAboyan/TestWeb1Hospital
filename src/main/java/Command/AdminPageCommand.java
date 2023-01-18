@@ -31,6 +31,7 @@ public class AdminPageCommand implements Command{
         }
 
 
+
         String sort = req.getParameter("sort");
 //        logger.info("get " + sort);
         DoctorDao doctorDao = new DoctorDao();
@@ -45,20 +46,32 @@ public class AdminPageCommand implements Command{
 
 
     public String executeWithOutSort(HttpServletRequest req, DoctorDao doctorDao) throws DAOException, CommandException {
+        int countOfPAtients ;
+
 
         String page = req.getParameter("page");
 //            logger.info("get " + page);
         int i = Integer.parseInt(page);
         List<Doctor> doctorList = doctorDao.getAllWithLimit(i, 5);
-        System.out.println(doctorList);
 
+        System.out.println(doctorList);
         int countPage = (int) Math.ceil((double)doctorDao.getCountDoctor()/5);
         System.out.println(countPage);
 //            logger.info("countPage =  " + countPage);
+
         if (doctorList == null) {
 //                logger.error("list admin = null");
             throw new CommandException("Error can`t get patients");
         } else {
+            for (Doctor doctor : doctorList) {
+                try {
+                    countOfPAtients = doctorDao.getCountOfPatientsByDoctor(doctor.getDoctorId());
+                    doctorDao.updateCountOfPatients(countOfPAtients,doctor.getDoctorId());
+                } catch (DAOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             req.getSession().setAttribute("allDoctors", doctorList);
             req.setAttribute("page", page);
             req.setAttribute("countPage", countPage);
@@ -68,7 +81,7 @@ public class AdminPageCommand implements Command{
 
 
     private String executeWithSort(HttpServletRequest req, DoctorDao doctorDao, String sort) throws DAOException, CommandException {
-
+        int countOfPAtients ;
 
         String page = req.getParameter("page");
 //        logger.info("get " + page);
@@ -82,6 +95,14 @@ public class AdminPageCommand implements Command{
 //            logger.error("list admin = null");
             throw new CommandException("Error we can get patients");
         } else {
+            for (Doctor doctor : doctorList) {
+                try {
+                    countOfPAtients = doctorDao.getCountOfPatientsByDoctor(doctor.getDoctorId());
+                    doctorDao.updateCountOfPatients(countOfPAtients,doctor.getDoctorId());
+                } catch (DAOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 //            logger.info(doctorList);
             req.getSession().setAttribute("allDoctors", doctorList);
             req.setAttribute("page", page);

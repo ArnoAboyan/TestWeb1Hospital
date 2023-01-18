@@ -41,7 +41,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
     }
 
     @Override
-    public Doctor  getByID(Integer integer) {
+    public Doctor  getByID(Integer integer) throws DAOException {
         Connection connection = DBConnection.dbConnect();
         Doctor doctor = new Doctor();
 
@@ -57,6 +57,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
             doctor.setDoctorName(resultSet.getString("doctor_name"));
             doctor.setDoctorSurname(resultSet.getString("doctor_surname"));
             doctor.setCategory(resultSet.getInt("category_id"));
+            doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
 
         } catch (SQLException e) {
@@ -105,6 +106,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
                 doctor.setPassword(resultSet.getString("password"));
                 doctor.setCategory(resultSet.getInt("category_id"));
                 doctor.setRole(resultSet.getInt("role_id"));
+                doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
                 doctorList.add(doctor);
                 System.out.println(doctor);
@@ -115,7 +117,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
         return doctorList;
     }
 
-    public Doctor getByLogin(String login) {
+    public Doctor getByLogin(String login) throws DAOException {
         Connection connection = DBConnection.dbConnect();
         Doctor doctor = new Doctor();
 
@@ -131,6 +133,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
             doctor.setDoctorName(resultSet.getString("doctor_name"));
             doctor.setDoctorSurname(resultSet.getString("doctor_surname"));
             doctor.setCategory(resultSet.getInt("category_id"));
+            doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
 
         } catch (SQLException e) {
@@ -157,6 +160,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
                 doctor.setPassword(resultSet.getString("password"));
                 doctor.setCategory(resultSet.getInt("category_id"));
                 doctor.setRole(resultSet.getInt("role_id"));
+                doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
                 doctorList.add(doctor);
             }
@@ -190,8 +194,10 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
                 doctor.setPassword(resultSet.getString("password"));
                 doctor.setCategory(resultSet.getInt("category_id"));
                 doctor.setRole(resultSet.getInt("role_id"));
+                doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
                 doctorList.add(doctor);
+                System.out.println(doctor);
             }
         } catch (SQLException e) {
             throw new DAOException("Can not get doctor. ", e);
@@ -222,6 +228,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
                 doctor.setPassword(resultSet.getString("password"));
                 doctor.setCategory(resultSet.getInt("category_id"));
                 doctor.setRole(resultSet.getInt("role_id"));
+                doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
                 doctorList.add(doctor);
             }
@@ -251,4 +258,45 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
 
         return result;
     }
+
+    public Integer getCountOfPatientsByDoctor (int doctorid) throws DAOException {
+        int result = 0;
+
+        Connection connection = DBConnection.dbConnect();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_COUNT_PATIENT_BY_DOCTOR_ID)) {
+            preparedStatement.setInt(1, doctorid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Can not get count Patient");
+        }
+
+        return result;
+    }
+
+    public boolean updateCountOfPatients (int count, int doctorId) {
+        Connection connection = DBConnection.dbConnect();
+
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.UPDATE_COUNT_PATIENT_BY_DOCTOR_ID);) {
+
+            preparedStatement.setInt(1, count);
+            preparedStatement.setInt(2, doctorId);
+
+
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
 }

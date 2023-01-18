@@ -1,5 +1,6 @@
 package entitys;
 
+import DAO.DAOException;
 import DAO.impl.DoctorDao;
 import DAO.impl.PatientDao;
 
@@ -55,7 +56,7 @@ public class Appointment {
         this.appointmentData = appointmentData;
     }
 
-    public String getAppointmentDoctorName() {
+    public String getAppointmentDoctorName() throws DAOException {
         Doctor doctor;
         DoctorDao doctorDao = new DoctorDao();
 
@@ -64,7 +65,7 @@ public class Appointment {
     return appointmentDoctorName =  doctor.getDoctorName();
     }
 
-    public String getAppointmentDoctorSurname() {
+    public String getAppointmentDoctorSurname() throws DAOException {
         Doctor doctor;
         DoctorDao doctorDao = new DoctorDao();
 
@@ -73,7 +74,7 @@ public class Appointment {
         return appointmentDoctorSurname =  doctor.getDoctorSurname();
     }
 
-    public Category getAppointmentDoctorCategory() {
+    public Category getAppointmentDoctorCategory() throws DAOException {
         Doctor doctor;
         DoctorDao doctorDao = new DoctorDao();
 

@@ -1,6 +1,9 @@
 package entitys;
 
 
+import DAO.DAOException;
+import DAO.impl.DoctorDao;
+
 import java.util.Objects;
 
 public class Doctor {
@@ -12,6 +15,7 @@ public class Doctor {
     private String password;
     private Category category;
     private Role role;
+    private int countOfPatients;
 
     public Doctor() {
     }
@@ -105,6 +109,14 @@ public class Doctor {
         else {
             throw new IllegalArgumentException("Incorrect id, do not have role for this"+id);
         }
+    }
+
+    public int getCountOfPatients() {
+        return countOfPatients;
+    }
+
+    public void setCountOfPatients(int countOfPatients) {
+        this.countOfPatients = countOfPatients;
     }
 
     @Override

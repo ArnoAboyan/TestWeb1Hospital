@@ -33,12 +33,15 @@
                             <fmt:message key="admin_jsp.Doctors"/>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="controller?command=adminpagecommand&page=1"><fmt:message key="admin_jsp.Doctors"/></a>
+                            <li><a class="dropdown-item" href="controller?command=adminpagecommand&page=1"><fmt:message
+                                    key="admin_jsp.Doctors"/></a>
                             </li>
                             <li><a class="dropdown-item"
-                                   href="controller?command=patientlistcommand&page=1"><fmt:message key="admin_jsp.Patients"/></a></li>
+                                   href="controller?command=patientlistcommand&page=1"><fmt:message
+                                    key="admin_jsp.Patients"/></a></li>
                             <li><a class="dropdown-item"
-                                   href="controller?command=appointmentpagecommand&page=1"><fmt:message key="admin_jsp.Appointments"/></a></li>
+                                   href="controller?command=appointmentpagecommand&page=1"><fmt:message
+                                    key="admin_jsp.Appointments"/></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -49,7 +52,8 @@
             </div>
             <form action="controller" method="get">
                 <input type="hidden" name="command" value="logout">
-                <button type="submit" class="btn btn-outline-secondary" style="background-color: #e3f2fd;"><fmt:message key="admin_jsp.logout"/>
+                <button type="submit" class="btn btn-outline-secondary" style="background-color: #e3f2fd;"><fmt:message
+                        key="admin_jsp.logout"/>
                 </button>
             </form>
         </div>
@@ -90,6 +94,11 @@
                                            href="controller?command=adminpagecommand&page=1&sort=role_id"><fmt:message
                                 key="admin_jsp.doctorRole"/></a>
                         </th>
+                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info"
+                                           style="background-color: #e3f2fd;"
+                                           href="controller?command=adminpagecommand&page=1&sort=countofpatients"><fmt:message
+                                key="admin_jsp.countOfPatients"/></a>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -103,6 +112,7 @@
                             <td>*******</td>
                             <td>${doctor.category}</td>
                             <td>${doctor.role}</td>
+                            <td>${doctor.countOfPatients}</td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-sm " data-bs-toggle="modal"
                                         data-bs-target="#deleteDoctorModal${doctor.doctorId}">X
@@ -111,7 +121,8 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title "><fmt:message key="admin_jsp.doctorDeleteDoctor"/></h5>
+                                                <h5 class="modal-title "><fmt:message
+                                                        key="admin_jsp.doctorDeleteDoctor"/></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -120,7 +131,8 @@
                                                     <fmt:message key="admin_jsp.Attention!"/>
                                                 </div>
                                                 >
-                                                <a class="text-secondary text-decoration-none "><fmt:message key="admin_jsp.Delete"/>
+                                                <a class="text-secondary text-decoration-none "><fmt:message
+                                                        key="admin_jsp.Delete"/>
                                                         ${doctor.doctorName} ${doctor.doctorSurname}
                                                     ?</a>
                                             </div>
@@ -131,7 +143,8 @@
                                                 <form action="controller" method="get">
                                                     <input type="hidden" name="command" value="deletedoctorcommand">
                                                     <input type="hidden" name="deletedoctor" value=${doctor.doctorId}>
-                                                    <button type="submit" class="btn btn-primary"><fmt:message key="admin_jsp.Yes"/></button>
+                                                    <button type="submit" class="btn btn-primary"><fmt:message
+                                                            key="admin_jsp.Yes"/></button>
                                                 </form>
                                             </div>
                                         </div>
@@ -142,7 +155,8 @@
                                     <input type="hidden" name="command" value="patientlistbydoctor">
                                     <input type="hidden" name="patientsfordoctorid" value=${doctor.doctorId}>
                                     <input type="hidden" name="page" value=1>
-                                    <button type="submit" class="btn btn-primary btn-sm"><fmt:message key="admin_jsp.doctorPatients"/></button>
+                                    <button type="submit" class="btn btn-primary btn-sm"><fmt:message
+                                            key="admin_jsp.doctorPatients"/></button>
                                 </form>
                             </td>
                             </td>
@@ -171,7 +185,8 @@
                     <div class="mb-3">
                         <input type="hidden" name="command" value="adddoctorcommand">
                         <input type="text" name="name" class="form-control" id="InputName" aria-describedby="nameHelp"
-                               required minlength="4" maxlength="18" placeholder="<fmt:message key="admin_jsp.doctorWritename"/>">
+                               required minlength="4" maxlength="18"
+                               placeholder="<fmt:message key="admin_jsp.doctorWritename"/>">
                     </div>
                     <div class="mb-3">
                         <input type="test" class="form-control" id="InputSurname" name="surname" required minlength="3"
@@ -179,11 +194,13 @@
                     </div>
                     <div class="mb-3">
                         <input type="login" name="login" class="form-control" id="exampleInputEmail1"
-                               aria-describedby="emailHelp" required minlength="4" maxlength="18" placeholder="<fmt:message key="admin_jsp.doctorWritelogin"/>">
+                               aria-describedby="emailHelp" required minlength="4" maxlength="18"
+                               placeholder="<fmt:message key="admin_jsp.doctorWritelogin"/>">
                     </div>
                     <div class="mb-3">
                         <input type="password" class="form-control" id="exampleInputPassword1" name="password" required
-                               minlength="4" maxlength="18" placeholder="<fmt:message key="admin_jsp.doctorWritepassword"/>">
+                               minlength="4" maxlength="18"
+                               placeholder="<fmt:message key="admin_jsp.doctorWritepassword"/>">
                     </div>
                     <div class="mb-3">
                         <input type="hidden" class="form-control" id="InputRole" name="role" value="doctor">

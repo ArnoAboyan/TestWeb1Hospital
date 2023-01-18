@@ -44,6 +44,8 @@ public class AttributFinal {
     public static final String LIMIT_DOCTOR = " limit ?, ?";
     public static final String GET_ALL_DOCTOR_LIMIT = "SELECT * FROM doctors limit ?, ?";
     public static final String COUNT_OF_DOCTOR = "SELECT COUNT(1) FROM doctors";
+    public static final String UPDATE_COUNT_PATIENT_BY_DOCTOR_ID = "UPDATE doctors set countofpatients = ? WHERE doctor_id = ?";
+    public static final String GET_COUNT_PATIENT_BY_DOCTOR_ID = "SELECT COUNT(DISTINCT patients.patient_id) FROM patients inner join appointments on appointments.patient_id = patients.patient_id where appointments.doctor_id = ?";
 
 
     public static final String GET_ALL_PATIENT_LIMIT_BY_ID = "SELECT * FROM patients inner join appointments on appointments.patient_id = patients.patient_id where appointments.doctor_id = ? group by patients.patient_id limit ?, ?";
