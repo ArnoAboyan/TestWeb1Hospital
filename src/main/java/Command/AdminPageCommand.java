@@ -8,6 +8,7 @@ import entitys.Patient;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class AdminPageCommand implements Command{
@@ -15,7 +16,7 @@ public class AdminPageCommand implements Command{
 
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException, SQLException {
 
 //check role
         Doctor user = (Doctor) req.getSession().getAttribute("currentUser");
@@ -45,7 +46,7 @@ public class AdminPageCommand implements Command{
     }
 
 
-    public String executeWithOutSort(HttpServletRequest req, DoctorDao doctorDao) throws DAOException, CommandException {
+    public String executeWithOutSort(HttpServletRequest req, DoctorDao doctorDao) throws DAOException, CommandException, SQLException {
         int countOfPAtients ;
 
 
@@ -53,10 +54,8 @@ public class AdminPageCommand implements Command{
 //            logger.info("get " + page);
         int i = Integer.parseInt(page);
         List<Doctor> doctorList = doctorDao.getAllWithLimit(i, 5);
-
         System.out.println(doctorList);
         int countPage = (int) Math.ceil((double)doctorDao.getCountDoctor()/5);
-        System.out.println(countPage);
 //            logger.info("countPage =  " + countPage);
 
         if (doctorList == null) {
@@ -80,7 +79,7 @@ public class AdminPageCommand implements Command{
     }
 
 
-    private String executeWithSort(HttpServletRequest req, DoctorDao doctorDao, String sort) throws DAOException, CommandException {
+    private String executeWithSort(HttpServletRequest req, DoctorDao doctorDao, String sort) throws DAOException, CommandException, SQLException {
         int countOfPAtients ;
 
         String page = req.getParameter("page");

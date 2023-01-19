@@ -3,7 +3,7 @@ package DAO.impl;
 import DAO.DAOException;
 import DAO.EntityDAO;
 import Util.AttributFinal;
-import Util.DBConnection;
+import Util.ConnectionPool;
 import entitys.HospitalCard;
 
 import java.sql.Connection;
@@ -17,11 +17,12 @@ public class HospitalCardDao implements EntityDAO<Integer, HospitalCard> {
 
     @Override
     public boolean create(HospitalCard hospitalCard) throws DAOException {
-        Connection connection = DBConnection.dbConnect();
+
 
             if (!checkAvailable(hospitalCard.getPatientId(), hospitalCard.getDoctorId())) {
 
-                try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDHOSPITALCARD);) {
+                try (Connection connection = ConnectionPool.getDataSource().getConnection();
+                     PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDHOSPITALCARD);) {
 
                     preparedStatement.setInt(1, hospitalCard.getPatientId());
                     preparedStatement.setInt(2, hospitalCard.getDoctorId());
@@ -48,8 +49,8 @@ public class HospitalCardDao implements EntityDAO<Integer, HospitalCard> {
 
     @Override
     public boolean update(HospitalCard hospitalCard) {
-        Connection connection = DBConnection.dbConnect();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.UPDATE_HOSPITAL_CARD);) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.UPDATE_HOSPITAL_CARD);) {
 
             preparedStatement.setString(1, hospitalCard.getDiagnosis());
             preparedStatement.setString(2, hospitalCard.getProcedures());
@@ -78,10 +79,10 @@ public class HospitalCardDao implements EntityDAO<Integer, HospitalCard> {
     }
 
     public HospitalCard getByPatientID(Integer integer) throws DAOException {
-        Connection connection = DBConnection.dbConnect();
-        HospitalCard hospitalCard = new HospitalCard();
+                HospitalCard hospitalCard = new HospitalCard();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_HOSPITALCARD_BY_PATIENT_ID)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_HOSPITALCARD_BY_PATIENT_ID)) {
             preparedStatement.setInt(1, integer);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -105,11 +106,10 @@ public class HospitalCardDao implements EntityDAO<Integer, HospitalCard> {
 
 
     public Boolean checkAvailable(Integer patient, Integer doctor) throws DAOException {
-        Connection connection = DBConnection.dbConnect();
-
 
         boolean check = false;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.CHECK_HOSPITALCARD_AVALABILE)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.CHECK_HOSPITALCARD_AVALABILE)) {
 
             preparedStatement.setInt(1, patient);
             preparedStatement.setInt(2, doctor);

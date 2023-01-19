@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 //FRONT CONTROLLER
 @WebServlet("/controller")
@@ -58,6 +59,8 @@ public class Controller extends HttpServlet {
 
             //logger.info("Controller update backlink= " + substring);
             req.getSession().setAttribute("exception", e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         req.getRequestDispatcher(address).forward(req, resp);
     }

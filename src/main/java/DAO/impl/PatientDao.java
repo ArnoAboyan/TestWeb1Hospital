@@ -3,8 +3,7 @@ package DAO.impl;
 import DAO.DAOException;
 import DAO.EntityDAO;
 import Util.AttributFinal;
-import Util.DBConnection;
-import entitys.Doctor;
+import Util.ConnectionPool;
 import entitys.Patient;
 
 import java.sql.Connection;
@@ -15,16 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientDao implements EntityDAO<Integer, Patient> {
-
-
+    ;
 
 
     @Override
     public boolean create(Patient patient) {
-        Connection connection = DBConnection.dbConnect();
 
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDPATIENT);){
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDPATIENT);){
 
             preparedStatement.setString(1, patient.getPatientName());
             preparedStatement.setString(2,patient.getPatientSurname());
@@ -43,10 +41,10 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
 
     @Override
     public Patient getByID(Integer integer) {
-        Connection connection = DBConnection.dbConnect();
         Patient patient = new Patient();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_PATIENT_BY_ID)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_PATIENT_BY_ID)) {
             preparedStatement.setInt(1, integer);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -74,10 +72,11 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
 
     @Override
     public void delete(Integer patientid) {
-        Connection connection = DBConnection.dbConnect();
 
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.DELETEPATIENT);) {
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.DELETEPATIENT);) {
             preparedStatement.setInt(1, patientid);
 
             preparedStatement.executeUpdate();
@@ -89,10 +88,11 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
 
     @Override
     public List <Patient> getAll() throws DAOException {
-        Connection connection = DBConnection.dbConnect();
+
         List<Patient> patientList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_PATIENT)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_PATIENT)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -114,10 +114,11 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
     }
 
     public List<Patient> getPatientsByDoctorId(Integer integer) throws DAOException {
-        Connection connection = DBConnection.dbConnect();
+
         List<Patient> patientList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_PATIENT_BY_DOCTOR_ID)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_PATIENT_BY_DOCTOR_ID)) {
             preparedStatement.setInt(1, integer);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -147,10 +148,10 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
             start = start * count;
         }
 
-        Connection connection = DBConnection.dbConnect();
         List<Patient> patientList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_PATIENT_LIMIT)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_PATIENT_LIMIT)) {
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, count);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -176,9 +177,10 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
     public int getCountPatient() throws DAOException {
         int result = 0;
 
-        Connection connection = DBConnection.dbConnect();
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.COUNT_OF_PATIENT)) {
+
+            try (Connection connection = ConnectionPool.getDataSource().getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.COUNT_OF_PATIENT)) {
                 ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -198,11 +200,11 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
         if (start != 0) {
             start = start * count;
         }
-        Connection connection = DBConnection.dbConnect();
         List<Patient> patientList = new ArrayList<>();
         String query = AttributFinal.SORT_PATIENT + sort + AttributFinal.LIMIT_PATIENT;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, count);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -230,10 +232,11 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
             start = start * count;
         }
 
-        Connection connection = DBConnection.dbConnect();
+
         List<Patient> patientList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_PATIENT_LIMIT_BY_ID)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_PATIENT_LIMIT_BY_ID)) {
             preparedStatement.setInt(1, doctorid);
             preparedStatement.setInt(2, start);
             preparedStatement.setInt(3, count);
@@ -260,9 +263,10 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
     public int getCountPatientById(int doctorid) throws DAOException {
         int result = 0;
 
-        Connection connection = DBConnection.dbConnect();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.COUNT_OF_PATIENT_BY_ID)) {
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.COUNT_OF_PATIENT_BY_ID)) {
             preparedStatement.setInt(1, doctorid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -283,11 +287,12 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
         if (start != 0) {
             start = start * count;
         }
-        Connection connection = DBConnection.dbConnect();
+
         List<Patient> patientList = new ArrayList<>();
         String query = AttributFinal.SORT_PATIENT_BY_ID + sort + AttributFinal.LIMIT_PATIENT_BY_ID;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, doctorid);
             preparedStatement.setInt(2, start);
             preparedStatement.setInt(3, count);

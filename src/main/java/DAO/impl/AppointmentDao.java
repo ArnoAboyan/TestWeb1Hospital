@@ -3,27 +3,25 @@ package DAO.impl;
 import DAO.DAOException;
 import DAO.EntityDAO;
 import Util.AttributFinal;
-import Util.DBConnection;
+import Util.ConnectionPool;
 import entitys.Appointment;
-import entitys.Doctor;
-import entitys.Patient;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
     @Override
     public boolean create(Appointment appointment) {
-        Connection connection = DBConnection.dbConnect();
 
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDDAPPOINTMENT);) {
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDDAPPOINTMENT);) {
 
             preparedStatement.setInt(1, appointment.getDoctorId());
             preparedStatement.setInt(2, appointment.getPatientId());
-            java.sql.Timestamp timestamp = java.sql.Timestamp.valueOf(appointment.getAppointmentData());
+            Timestamp timestamp = Timestamp.valueOf(appointment.getAppointmentData());
             preparedStatement.setTimestamp(3, timestamp);
 
             preparedStatement.executeUpdate();
@@ -46,10 +44,11 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
 
     @Override
     public void delete(Integer appointmentid) {
-        Connection connection = DBConnection.dbConnect();
 
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.DELETEAPPOINTMENT);) {
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.DELETEAPPOINTMENT);) {
             preparedStatement.setInt(1, appointmentid);
 
             preparedStatement.executeUpdate();
@@ -62,10 +61,11 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
 
     @Override
     public List<Appointment> getAll() throws DAOException {
-        Connection connection = DBConnection.dbConnect();
+
         List<Appointment> appointmentList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_APPOINTMENT)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_APPOINTMENT)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -86,11 +86,12 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
     }
 
     public List<Appointment> getAppointmentByDoctorId(Integer integer) throws DAOException {
-        Connection connection = DBConnection.dbConnect();
+
 
         List<Appointment> appointmentList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_APPOINTMENT_BY_DOCTOR_ID)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_APPOINTMENT_BY_DOCTOR_ID)) {
             preparedStatement.setInt(1, integer);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -112,10 +113,11 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
 
     }
     public List<Appointment> getAppointmentByPatientAndDoctorId(Integer doctor, Integer patient) throws DAOException {
-        Connection connection = DBConnection.dbConnect();
+
         List<Appointment> appointmentList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_APPOINTMENT_BY_DOCTOR_AND_PATIENT_ID)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_APPOINTMENT_BY_DOCTOR_AND_PATIENT_ID)) {
             preparedStatement.setInt(1, doctor);
             preparedStatement.setInt(2, patient);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -144,10 +146,10 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
             start = start * count;
         }
 
-        Connection connection = DBConnection.dbConnect();
         List<Appointment> appointmentList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_APPOINTMENT_LIMIT)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_APPOINTMENT_LIMIT)) {
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, count);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -173,11 +175,11 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
         if (start != 0) {
             start = start * count;
         }
-        Connection connection = DBConnection.dbConnect();
         List<Appointment> appointmentList = new ArrayList<>();
         String query = AttributFinal.SORT_APPOINTMENT + sort + AttributFinal.LIMIT_APPOINTMENT;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, count);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -201,9 +203,10 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
     public int getCountPatient() throws DAOException{
         int result = 0;
 
-        Connection connection = DBConnection.dbConnect();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.COUNT_OF_APPOINTMENT)) {
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.COUNT_OF_APPOINTMENT)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {

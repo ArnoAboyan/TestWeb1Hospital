@@ -10,6 +10,7 @@ import entitys.Patient;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class AppointmentListCommand implements Command{
 
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException, SQLException {
 
 
 //check role
@@ -48,7 +49,7 @@ public class AppointmentListCommand implements Command{
     }
 
 
-    public String executeWithOutSort(HttpServletRequest req, AppointmentDao appointmentDao) throws DAOException, CommandException {
+    public String executeWithOutSort(HttpServletRequest req, AppointmentDao appointmentDao) throws DAOException, CommandException, SQLException {
 
         String page = req.getParameter("page");
 //            logger.info("get " + page);
