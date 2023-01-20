@@ -45,7 +45,7 @@ public class LoginCommand implements Command {
                     return "controller?command=patientlistbydoctor&page=1&patientsfordoctorid=" + doctor.getDoctorId();
                 }
                 else if (role.getTitle().equalsIgnoreCase("nurse")) {
-                    return "controller?command=catalog&page=1"; }
+                    return "controller?command=hospitalcardlist&page=1"; }
 
             } else{
                 throw new CommandException("password wrong");

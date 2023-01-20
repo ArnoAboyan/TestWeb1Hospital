@@ -106,6 +106,9 @@ public class Doctor {
         else if (id == 7){
             this.category = Category.PEDIATRICIAN;
         }
+        else if (id == 8) {
+            this.category = Category.NURSE;
+        }
         else {
             throw new IllegalArgumentException("Incorrect id, do not have role for this"+id);
         }

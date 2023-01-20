@@ -7,7 +7,8 @@ public enum Category {
     DENTIST (4, "dentist"),
     PSYCHIATRIST (5, "psychiatrist"),
     THERAPIST (6, "therapist"),
-    PEDIATRICIAN (7, "pediatrician");
+    PEDIATRICIAN (7, "pediatrician"),
+    NURSE (8, "nurse");
 
     private final int id;
     private final String title;
@@ -47,6 +48,9 @@ public enum Category {
         }
         else if (title.equals("pediatrician")){
             return 7;
+        }
+        else if (title.equals("nurse")){
+            return 8;
         }
         else {
             throw new IllegalArgumentException("Incorrect id, do not have role for this");

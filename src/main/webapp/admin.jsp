@@ -49,6 +49,10 @@
                         data-bs-target="#addDoctorModal">
                     <fmt:message key="admin_jsp.doctorAddDoctor"/>
                 </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#addNurseModal">
+                    add nurse
+                </button>
             </div>
             <form action="controller" method="get">
                 <input type="hidden" name="command" value="logout">
@@ -171,7 +175,7 @@
 </section>
 
 
-<!-- Modal -->
+<!-- Modal ADD DOCTOR -->
 <div class="modal fade" id="addDoctorModal" tabindex="-1" aria-labelledby="addDoctorModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -217,6 +221,52 @@
                             <option value="therapist">therapist</option>
                             <option value="pediatrician">pediatrician</option>
                         </select>
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-lg"><fmt:message key="admin_jsp.Add"/></button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ADD NURSE -->
+<div class="modal fade" id="addNurseModal" tabindex="-1" aria-labelledby="addNurseModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addNurseModal1">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="controller" method="post">
+                    <div class="mb-3">
+                        <input type="hidden" name="command" value="adddoctorcommand">
+                        <input type="text" name="name" class="form-control" id="InputNameNurse" aria-describedby="nameHelp"
+                               required minlength="4" maxlength="18"
+                               placeholder="<fmt:message key="admin_jsp.doctorWritename"/>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="test" class="form-control" id="InputSurnameNurse" name="surname" required minlength="3"
+                               maxlength="18" placeholder="<fmt:message key="admin_jsp.doctorWritesurname"/>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="login" name="login" class="form-control" id="InputEmailNurse"
+                               aria-describedby="emailHelp" required minlength="4" maxlength="18"
+                               placeholder="<fmt:message key="admin_jsp.doctorWritelogin"/>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="InputPasswordNurse" name="password" required
+                               minlength="4" maxlength="18"
+                               placeholder="<fmt:message key="admin_jsp.doctorWritepassword"/>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" class="form-control" id="InputRoleNurse" name="role" value="nurse">
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" class="form-control" id="selectCategoryNurse" name="category" value="nurse">
                     </div>
                     <button type="submit" class="btn btn-secondary btn-lg"><fmt:message key="admin_jsp.Add"/></button>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

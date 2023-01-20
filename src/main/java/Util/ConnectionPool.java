@@ -33,7 +33,7 @@ public class ConnectionPool {
 
             dataSource.setMinimumIdle(100);
             dataSource.setMaximumPoolSize(2000);//The maximum number of connections, idle or busy, that can be present in the pool.
-            dataSource.setAutoCommit(false);
+            dataSource.setAutoCommit(true);
             dataSource.setLoginTimeout(3);
 
         } catch (SQLException e) {

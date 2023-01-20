@@ -27,8 +27,11 @@ public class CommandContainer {
         commands.put("addappointmentcommand", new AddAppointmentCommand());
         commands.put("patientlistbydoctor", new PatientListByDoctor());
         commands.put("hospitalcardbypatientid", new HospitalCardByPatientId());
+        commands.put("hospitalcardbyid", new HospitalCardById());
         commands.put("changehospitalcardcommand", new ChangeHospitalCardCommand());
         commands.put("deleteappointmentcommand", new DeleteAppointmentCommand());
+        commands.put("hospitalcardlist", new HospitalCardList());
+
     }
 
     public static Command getCommand(String commandName){

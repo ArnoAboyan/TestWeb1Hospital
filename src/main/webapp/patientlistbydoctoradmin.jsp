@@ -75,8 +75,6 @@
               <td>${patient.patientPhone}</td>
               <td>${patient.patientGender}</td>
               <td>
-
-
                 <form action="controller" method="get">
                   <input type="hidden" name="command" value="hospitalcardbypatientid">
                   <input type="hidden" name="patientid" value=${patient.patientId}>

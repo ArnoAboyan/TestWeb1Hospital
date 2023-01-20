@@ -56,5 +56,16 @@ public class AttributFinal {
     public static final String SORT_APPOINTMENT = "SELECT * FROM appointments ORDER BY ";
     public static final String LIMIT_APPOINTMENT = " limit ?, ?";
     public static final String COUNT_OF_APPOINTMENT = "SELECT COUNT(1) FROM appointments";
+
+
+
+
+    public static final String SORT_HOSPITALCARD = "SELECT * FROM hospitalcards ORDER BY ";
+    public static final String LIMIT_HOSPITALCARD = " limit ?, ?";
+    public static final String COUNT_OF_HOSPITALCARD = "SELECT COUNT(1) FROM hospitalcards";
+    public static final String GET_ALL_HOSPITALCARD_LIMIT = "SELECT * FROM hospitalcards limit ?, ?";
+    public static final String GET_HOSPITALCARD_BY_ID = "SELECT * FROM hospitalcards WHERE hospitalcard_id=?";
+
+
 }
 

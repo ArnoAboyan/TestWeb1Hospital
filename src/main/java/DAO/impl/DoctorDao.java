@@ -26,7 +26,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
 
         try (Connection connection = ConnectionPool.getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.ADDDOCTOR);) {
-
+            System.out.println("STATEMENT PREPARED");
             preparedStatement.setString(1, doctor.getDoctorName());
             preparedStatement.setString(2, doctor.getDoctorSurname());
             preparedStatement.setInt(3, doctor.getCategory().getTitleId());
@@ -36,7 +36,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
 
 
             preparedStatement.executeUpdate();
-
+            System.out.println("Create " + doctor);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +61,6 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
             doctor.setDoctorSurname(resultSet.getString("doctor_surname"));
             doctor.setCategory(resultSet.getInt("category_id"));
             doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -199,7 +198,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
                 doctor.setCountOfPatients(resultSet.getInt("countofpatients"));
 
                 doctorList.add(doctor);
-                System.out.println(doctor);
+
             }
         } catch (SQLException e) {
             throw new DAOException("Can not get doctor. ", e);
@@ -216,7 +215,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
 
         List<Doctor> doctorList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getDataSource().getConnection();PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.GET_ALL_DOCTOR_LIMIT)) {
-            System.out.println("STATEMENT PREPARED");
+
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, count);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -275,7 +274,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
                 result = resultSet.getInt(1);
 
             }
-            System.out.println("getCountOfPatientsByDoctor" + " " + result);
+
         } catch (SQLException e) {
             throw new DAOException("Can not get count Patient");
         }
@@ -295,7 +294,7 @@ public class DoctorDao implements EntityDAO<Integer, Doctor> {
 
 
             preparedStatement.executeUpdate();
-            System.out.println("updateCountOfPatients");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
