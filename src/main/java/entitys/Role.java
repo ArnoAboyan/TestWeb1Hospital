@@ -24,11 +24,11 @@ public enum Role {
     }
 
     public static Integer getIDByName(String title) {
-        if (title.equals("admin")) {
+        if (title.equalsIgnoreCase("admin")) {
             return 1;
-        } else if (title.equals("doctor")) {
+        } else if (title.equalsIgnoreCase("doctor")) {
             return 2;
-        } else if (title.equals("nurse")) {
+        } else if (title.equalsIgnoreCase("nurse")) {
             return 3;
         } else {
             throw new IllegalArgumentException("Incorrect id, do not have role for this");

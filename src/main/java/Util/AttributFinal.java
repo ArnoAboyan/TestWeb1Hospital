@@ -48,6 +48,11 @@ public class AttributFinal {
     public static final String GET_COUNT_PATIENT_BY_DOCTOR_ID = "SELECT COUNT(DISTINCT patients.patient_id) FROM patients inner join appointments on appointments.patient_id = patients.patient_id where appointments.doctor_id = ?";
 
 
+
+    public static final String UPDATE_DOCTOR_BY_ID = "UPDATE doctors SET doctor_name=?, doctor_surname=?,category_id=?,login=?,password=?,role_id=? WHERE doctor_id=?";
+
+
+
     public static final String GET_ALL_PATIENT_LIMIT_BY_ID = "SELECT * FROM patients inner join appointments on appointments.patient_id = patients.patient_id where appointments.doctor_id = ? group by patients.patient_id limit ?, ?";
     public static final String SORT_PATIENT_BY_ID = "SELECT  * from patients inner join appointments on appointments.patient_id = patients.patient_id where appointments.doctor_id = ? group by patients.patient_id ORDER BY ";
     public static final String LIMIT_PATIENT_BY_ID = " limit ?, ?";
@@ -66,6 +71,9 @@ public class AttributFinal {
     public static final String GET_ALL_HOSPITALCARD_LIMIT = "SELECT * FROM hospitalcards limit ?, ?";
     public static final String GET_HOSPITALCARD_BY_ID = "SELECT * FROM hospitalcards WHERE hospitalcard_id=?";
 
+
+   //valifdation
+    public static final String  CHECK_DOCTOR_AVAILABILITY_BY_EMAIL = "SELECT * FROM doctors WHERE login=?";
 
 }
 

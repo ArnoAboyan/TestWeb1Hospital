@@ -28,28 +28,28 @@ public enum Category {
     }
 
     public static Integer getIDByName(String title) {
-        if (title.equals("onkologist")){
+        if (title.equalsIgnoreCase("onkologist")){
            return 1;
         }
-        else if (title.equals("traumatologist")){
+        else if (title.equalsIgnoreCase("traumatologist")){
             return 2;
         }
-        else if (title.equals("ophthalmologist")){
+        else if (title.equalsIgnoreCase("ophthalmologist")){
             return 3;
         }
-        else if (title.equals("dentist")){
+        else if (title.equalsIgnoreCase("dentist")){
             return 4;
         }
-        else if (title.equals("psychiatrist")){
+        else if (title.equalsIgnoreCase("psychiatrist")){
             return 5;
         }
-        else if (title.equals("therapist")){
+        else if (title.equalsIgnoreCase("therapist")){
             return 6;
         }
-        else if (title.equals("pediatrician")){
+        else if (title.equalsIgnoreCase("pediatrician")){
             return 7;
         }
-        else if (title.equals("nurse")){
+        else if (title.equalsIgnoreCase("nurse")){
             return 8;
         }
         else {

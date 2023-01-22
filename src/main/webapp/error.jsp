@@ -1,14 +1,14 @@
 
 <html>
 <head>
-  <title>IT Hotel</title>
+  <title>Hospital</title>
 </head>
-<body>
+<body style=" margin-bottom: 170px; background-repeat: no-repeat; background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2022-01/1643186349_1-phonoteka-org-p-svetlii-belii-fon-1.jpg');">
 <div class="main-content">
-  <h2> Error </h2>
-  <h4>${exception}</h4>
+  <h2> We have a problem: </h2>
+  <h3>${exception}</h3>
   <div>
-    <a href="${back}" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="false">Back</a>
+    <button type="button" class="btn btn-outline-info" tabindex="-1" role="button" onclick="history.back()" >Back</button>
   </div>
   <hr>
 </div>

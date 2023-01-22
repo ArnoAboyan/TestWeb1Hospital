@@ -31,6 +31,8 @@ public class CommandContainer {
         commands.put("changehospitalcardcommand", new ChangeHospitalCardCommand());
         commands.put("deleteappointmentcommand", new DeleteAppointmentCommand());
         commands.put("hospitalcardlist", new HospitalCardList());
+//        update command
+        commands.put("updatedoctorcommand", new UpdateDoctorCommand());
 
     }
 

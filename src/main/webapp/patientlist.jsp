@@ -186,13 +186,13 @@
                     <div class="mb-3">
                         <input type="hidden" name="command" value="addpatientcommand">
                         <input type="text" name="name" class="form-control" id="InputName" aria-describedby="nameHelp"
-                               required minlength="3" maxlength="18" placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientname"/>"
-                               pattern="[A-Za-z]{3,}" title="Three or more letters">
+                               required minlength="3" maxlength="20" placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientname"/>"
+                               pattern="[A-Za-z]{2,20}" title="Three or more letters">
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientsurname"/>" id="InputSurname"
                                name="surname" required minlength="3"
-                               maxlength="18" pattern="[A-Za-z]{3,}" title="Three or more letters">
+                               maxlength="20" pattern="[A-Za-z]{2,20}" title="Three or more letters">
                     </div>
                     <div class="mb-3">
                         <div>
