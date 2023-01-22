@@ -50,7 +50,7 @@ public class AttributFinal {
 
 
     public static final String UPDATE_DOCTOR_BY_ID = "UPDATE doctors SET doctor_name=?, doctor_surname=?,category_id=?,login=?,password=?,role_id=? WHERE doctor_id=?";
-
+    public static final String UPDATE_PATIENT_BY_ID = "UPDATE patients SET patient_name=?, patient_surname=?,patient_date_of_birth=?,gender=?,phone=? WHERE patient_id=?";
 
 
     public static final String GET_ALL_PATIENT_LIMIT_BY_ID = "SELECT * FROM patients inner join appointments on appointments.patient_id = patients.patient_id where appointments.doctor_id = ? group by patients.patient_id limit ?, ?";

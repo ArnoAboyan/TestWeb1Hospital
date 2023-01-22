@@ -33,6 +33,8 @@ public class CommandContainer {
         commands.put("hospitalcardlist", new HospitalCardList());
 //        update command
         commands.put("updatedoctorcommand", new UpdateDoctorCommand());
+        commands.put("updatepatientcommand", new UpdatePatientCommand());
+
 
     }
 

@@ -1,23 +1,20 @@
 package Command;
 
 import DAO.DAOException;
-import DAO.impl.DoctorDao;
 import DAO.impl.PatientDao;
-import entitys.Category;
-import entitys.Doctor;
 import entitys.Patient;
-import entitys.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.sql.Date;
 
-public class AddPatientCommand implements Command{
+public class UpdatePatientCommand implements Command{
 
 
+    //update patient information
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException {
-
+        int patientid = Integer.parseInt(req.getParameter("patientid"));
         Patient patient = new Patient();
 
 
@@ -52,7 +49,7 @@ public class AddPatientCommand implements Command{
         System.out.println(patient);
 
         PatientDao patientDao = new PatientDao();
-        patientDao.create(patient);
+        patientDao.updatePatientbyId(patient, patientid);
 
         return "controller?command=patientlistcommand&page=1";
     }

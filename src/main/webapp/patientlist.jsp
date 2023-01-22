@@ -18,7 +18,7 @@
 <header>
     <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
         <div class="container-fluid">
-            <a class="navbar-brand" >Hospital</a>
+            <a class="navbar-brand">Hospital</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -32,10 +32,14 @@
                             <fmt:message key="admin_jsp.Patients"/>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="controller?command=adminpagecommand&page=1"><fmt:message key="admin_jsp.Doctors"/></a></li>
-                            <li><a class="dropdown-item" href="controller?command=patientlistcommand&page=1"><fmt:message key="admin_jsp.Patients"/></a></li>
+                            <li><a class="dropdown-item" href="controller?command=adminpagecommand&page=1"><fmt:message
+                                    key="admin_jsp.Doctors"/></a></li>
                             <li><a class="dropdown-item"
-                                   href="controller?command=appointmentpagecommand&page=1"><fmt:message key="admin_jsp.Appointments"/></a></li>
+                                   href="controller?command=patientlistcommand&page=1"><fmt:message
+                                    key="admin_jsp.Patients"/></a></li>
+                            <li><a class="dropdown-item"
+                                   href="controller?command=appointmentpagecommand&page=1"><fmt:message
+                                    key="admin_jsp.Appointments"/></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -46,7 +50,8 @@
             </div>
             <form action="controller" method="get">
                 <input type="hidden" name="command" value="logout">
-                <button type="submit" class="btn btn-outline-secondary" style="background-color: #e3f2fd;"><fmt:message key="admin_jsp.logout"/></button>
+                <button type="submit" class="btn btn-outline-secondary" style="background-color: #e3f2fd;"><fmt:message
+                        key="admin_jsp.logout"/></button>
             </form>
         </div>
     </nav>
@@ -61,11 +66,26 @@
                 <table class="table table-sm">
                     <thead>
                     <tr>
-                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info" style="background-color: #e3f2fd;" href="controller?command=patientlistcommand&page=1&sort=patient_name"><fmt:message key="admin_jsp.Name"/></a></th>
-                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info" style="background-color: #e3f2fd;" href="controller?command=patientlistcommand&page=1&sort=patient_surname"><fmt:message key="admin_jsp.Surname"/></a></th>
-                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info" style="background-color: #e3f2fd;" href="controller?command=patientlistcommand&page=1&sort=patient_date_of_birth"><fmt:message key="admin_jsp.DateOfBirth"/></a></th>
-                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info" style="background-color: #e3f2fd;" href="controller?command=patientlistcommand&page=1&sort=phone"><fmt:message key="admin_jsp.Phone"/></a></th>
-                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info" style="background-color: #e3f2fd;" href="controller?command=patientlistcommand&page=1&sort=gender"><fmt:message key="admin_jsp.Gender"/></a></th>
+                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info"
+                                           style="background-color: #e3f2fd;"
+                                           href="controller?command=patientlistcommand&page=1&sort=patient_name"><fmt:message
+                                key="admin_jsp.Name"/></a></th>
+                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info"
+                                           style="background-color: #e3f2fd;"
+                                           href="controller?command=patientlistcommand&page=1&sort=patient_surname"><fmt:message
+                                key="admin_jsp.Surname"/></a></th>
+                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info"
+                                           style="background-color: #e3f2fd;"
+                                           href="controller?command=patientlistcommand&page=1&sort=patient_date_of_birth"><fmt:message
+                                key="admin_jsp.DateOfBirth"/></a></th>
+                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info"
+                                           style="background-color: #e3f2fd;"
+                                           href="controller?command=patientlistcommand&page=1&sort=phone"><fmt:message
+                                key="admin_jsp.Phone"/></a></th>
+                        <th scope="col"><a class="list-group-item list-group-item-action list-group-item-info"
+                                           style="background-color: #e3f2fd;"
+                                           href="controller?command=patientlistcommand&page=1&sort=gender"><fmt:message
+                                key="admin_jsp.Gender"/></a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -78,6 +98,7 @@
                             <td>${patient.patientPhone}</td>
                             <td>${patient.patientGender}</td>
                             <td>
+                                    <%--                                DELETE MODAL--%>
                                 <button type="button" class="btn btn-danger btn-sm " data-bs-toggle="modal"
                                         data-bs-target="#deletePatientModal${patient.patientId}">X
                                 </button>
@@ -94,7 +115,8 @@
                                                     <fmt:message key="admin_jsp.Attention!"/>
                                                 </div>
                                                 >
-                                                <a class="text-secondary text-decoration-none"><fmt:message key="admin_jsp.Delete"/>
+                                                <a class="text-secondary text-decoration-none"><fmt:message
+                                                        key="admin_jsp.Delete"/>
                                                         ${patient.patientName} ${patient.patientSurname}
                                                     ?</a>
                                             </div>
@@ -104,21 +126,90 @@
                                                 </button>
                                                 <form action="controller" method="get">
                                                     <input type="hidden" name="command" value="deletepatientcommand">
-                                                    <input type="hidden" name="deletepatient" value=${patient.patientId}>
-                                                    <button type="submit" class="btn btn-primary"><fmt:message key="admin_jsp.Yes"/></button>
+                                                    <input type="hidden" name="deletepatient"
+                                                           value=${patient.patientId}>
+                                                    <button type="submit" class="btn btn-primary"><fmt:message
+                                                            key="admin_jsp.Yes"/></button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                    <%--    UPDATE PATIENT MODAL--%>
+                                <button type="button" class="btn btn-outline-primary btn-sm " data-bs-toggle="modal"
+                                        data-bs-target="#updatePatientModal${patient.patientId}">Update
+                                </button>
+                                <div class="modal" id="updatePatientModal${patient.patientId}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"><fmt:message key="admin_jsp.Delete"/></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="controller" method="post">
+                                                    <div class="mb-3">
+                                                        <input type="hidden" name="command" value="updatepatientcommand">
+                                                        <input type="hidden" name="patientid" value="${patient.patientId}">
+                                                        <input type="text" name="name" class="form-control" id="updateInputName" aria-describedby="nameHelp"
+                                                               required minlength="3" maxlength="20"
+                                                               value="${patient.patientName}"
+                                                               pattern="[-a-zA-Zа-яА-ЯЁёЇїІіҐґ]{2,20}" title="Three or more letters">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control"
+                                                               value="${patient.patientSurname}"
+                                                               id="updateInputSurname"
+                                                               name="surname" required minlength="3"
+                                                               maxlength="20" pattern="[-a-zA-Zа-яА-ЯЁёЇїІіҐґ]{2,20}" title="Three or more letters">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div>
+                                                            <label for="updatephone"><fmt:message key="admin_jsp.patientlistEnteraphonenumber"/></label>
+                                                            <input type="number" id="updatephone" name="phone"
+                                                                   value="0${patient.patientPhone}"
+                                                                   pattern="(\+\d{1,2}\s)?\(?\d{3}\)?\d{3}\d{4}" required></div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div>
+                                                            <label>
+                                                                <fmt:message key="admin_jsp.patientlistEnteryourbirthday"/>
+                                                                <input type="date" name="birthday" value="${patient.patientDateOfBirth}" required>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div>
+                                                            <input type="radio" id="updatemale" name="gender" value="male" required>
+                                                            <label for="updatemale"><fmt:message key="admin_jsp.patientlistMale"/></label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="radio" id="updatefemale" name="gender" value="female" required>
+                                                            <label for="updatefemale"><fmt:message key="admin_jsp.patientlistFemale"/></label>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-outline-primary">Update</button>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                    <%--    ADD APPOINTMENT MODAL--%>
                                 <button type="button" class="btn btn-primary btn-sm " data-bs-toggle="modal"
-                                        data-bs-target="#addAppointment${patient.patientId}"><fmt:message key="admin_jsp.patientlistAppointment"/>
+                                        data-bs-target="#addAppointment${patient.patientId}"><fmt:message
+                                        key="admin_jsp.patientlistAppointment"/>
                                 </button>
                                 <div class="modal" id="addAppointment${patient.patientId}" tabindex="-1">
                                     <div class="modal-dialog ">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title"><fmt:message key="admin_jsp.patientlistAppointment"/></h5>
+                                                <h5 class="modal-title"><fmt:message
+                                                        key="admin_jsp.patientlistAppointment"/></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -129,7 +220,9 @@
                                                                value="addappointmentcommand">
                                                         <input type="hidden" name="patientid"
                                                                value=${patient.patientId}>
-                                                        <label for="selectDoctor" class="form-label text-black"><fmt:message key="admin_jsp.patientlistselectDoctor"/></label>
+                                                        <label for="selectDoctor"
+                                                               class="form-label text-black"><fmt:message
+                                                                key="admin_jsp.patientlistselectDoctor"/></label>
                                                         <select class="form-select" name="doctor" id="selectDoctor"
                                                                 aria-label="Default select example">
                                                             <c:forEach var="doctor" items="${allDoctors}">
@@ -142,16 +235,18 @@
                                                     </div>
                                                     <div>
                                                         <label>
-                                                            <fmt:message key="admin_jsp.patientlistEnterappointmentdata"/>
+                                                            <fmt:message
+                                                                    key="admin_jsp.patientlistEnterappointmentdata"/>
                                                         </label>
-                                                            <input type="datetime-local" name="appointmentdata" required>
+                                                        <input type="datetime-local" name="appointmentdata" required>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">
                                                             <fmt:message key="admin_jsp.Close"/>
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary "><fmt:message key="admin_jsp.Add"/></button>
+                                                        <button type="submit" class="btn btn-primary "><fmt:message
+                                                                key="admin_jsp.Add"/></button>
                                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                                         </div>
                                                     </div>
@@ -186,20 +281,23 @@
                     <div class="mb-3">
                         <input type="hidden" name="command" value="addpatientcommand">
                         <input type="text" name="name" class="form-control" id="InputName" aria-describedby="nameHelp"
-                               required minlength="3" maxlength="20" placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientname"/>"
-                               pattern="[A-Za-z]{2,20}" title="Three or more letters">
+                               required minlength="3" maxlength="20"
+                               placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientname"/>"
+                               pattern="[-a-zA-Zа-яА-ЯЁёЇїІіҐґ]{2,20}" title="Three or more letters">
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientsurname"/>" id="InputSurname"
+                        <input type="text" class="form-control"
+                               placeholder="<fmt:message key="admin_jsp.patientlistEnterpatientsurname"/>"
+                               id="InputSurname"
                                name="surname" required minlength="3"
-                               maxlength="20" pattern="[A-Za-z]{2,20}" title="Three or more letters">
+                               maxlength="20" pattern="[-a-zA-Zа-яА-ЯЁёЇїІіҐґ]{2,20}" title="Three or more letters">
                     </div>
                     <div class="mb-3">
                         <div>
                             <label for="phone"><fmt:message key="admin_jsp.patientlistEnteraphonenumber"/></label>
                             <input type="number" id="phone" name="phone"
-                                   placeholder="0991234567"
-                                   pattern="[0-9]{10}" required></div>
+                                   placeholder="0123456789"
+                                   pattern="(\+\d{1,2}\s)?\(?\d{3}\)?\d{3}\d{4}" required></div>
                     </div>
                     <div class="mb-3">
                         <div>
@@ -238,7 +336,8 @@
                     <c:choose>
                         <c:when test="${page - 1 > 0}">
                             <li class="page-item">
-                                <a href="controller?command=patientlistcommand&page=${page-1}" class="btn btn-primary btn-sm">⮜</a>
+                                <a href="controller?command=patientlistcommand&page=${page-1}"
+                                   class="btn btn-primary btn-sm">⮜</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -250,7 +349,8 @@
                     <c:choose>
                         <c:when test="${page + 1 <= countPage}">
                             <li class="page-item">
-                                <a href="controller?command=patientlistcommand&page=${page+1}" class="btn btn-primary btn-sm">⮞</a>
+                                <a href="controller?command=patientlistcommand&page=${page+1}"
+                                   class="btn btn-primary btn-sm">⮞</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -264,7 +364,8 @@
                     <c:choose>
                         <c:when test="${page - 1 > 0}">
                             <li class="page-item">
-                                <a href="controller?command=patientlistcommand&page=${page-1}&sort=${sort}" class="btn btn-primary btn-sm">⮜</a>
+                                <a href="controller?command=patientlistcommand&page=${page-1}&sort=${sort}"
+                                   class="btn btn-primary btn-sm">⮜</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -276,7 +377,8 @@
                     <c:choose>
                         <c:when test="${page + 1 <= countPage}">
                             <li class="page-item">
-                                <a href="controller?command=patientlistcommand&page=${page+1}&sort=${sort}" class="btn btn-primary btn-sm">⮞</a>
+                                <a href="controller?command=patientlistcommand&page=${page+1}&sort=${sort}"
+                                   class="btn btn-primary btn-sm">⮞</a>
                             </li>
                         </c:when>
                         <c:otherwise>

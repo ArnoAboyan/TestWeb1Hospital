@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class AddDoctorCommand implements Command {
 
-
+    //update doctor and nurse information
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException {
             Doctor doctor = new Doctor();
@@ -32,23 +32,23 @@ public class AddDoctorCommand implements Command {
 
         if (surname.matches("[-a-zA-Zа-яА-ЯЁёЇїІіҐґ]{2,20}")){
                 doctor.setDoctorSurname(surname);
-        }else throw  new CommandException("The entered name is not correct");
+        }else throw  new CommandException("The entered surname is not correct");
 
         if (login.matches("[A-Za-z]{3,20}")){
                 doctor.setLogin(login);
-            }else throw  new CommandException("The entered name is not correct");
+            }else throw  new CommandException("The entered login is not correct");
 
         if (password.matches("[a-zA-Z0-9]{3,20}")){
                 doctor.setPassword(password);
-            }else throw  new CommandException("The entered name is not correct");
+            }else throw  new CommandException("The entered password is not correct");
 
         if (categoryID > 0 && categoryID <= 8 ){
                 doctor.setCategory(categoryID);
-        }else throw  new CommandException("The entered name is not correct");
+        }else throw  new CommandException("The entered category is not correct");
 
         if (roleID > 1 && roleID <= 3 ){
                 doctor.setRole(roleID);
-            }else throw  new CommandException("The entered name is not correct");
+            }else throw  new CommandException("The entered role is not correct");
 
 
 
