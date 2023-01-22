@@ -19,19 +19,26 @@ import java.util.List;
 
 public class AddAppointmentCommand implements Command {
 
-
+// ADD APPOINTMENT BY DOCTOR AND PATIENT ID
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException, CommandException {
-        Integer doctorID = Integer.valueOf(req.getParameter("doctor"));
-        Integer patientId = Integer.valueOf(req.getParameter("patientid"));
-        LocalDateTime appointmentdate = LocalDateTime.parse(req.getParameter("appointmentdata"));
-
+        int doctorID = Integer.parseInt(req.getParameter("doctor"));
+        int patientId = Integer.parseInt(req.getParameter("patientid"));
+        String appointmentdate = (req.getParameter("appointmentdata"));
         System.out.println(appointmentdate);
 
         Appointment appointment = new Appointment();
-        appointment.setDoctorId(doctorID);
-        appointment.setPatientId(patientId);
-        appointment.setAppointmentData(appointmentdate);
+
+        if (doctorID > 0) {
+            appointment.setDoctorId(doctorID);
+        } else throw new CommandException("The entered name is not correct");
+        if (patientId > 0) {
+            appointment.setPatientId(patientId);
+        } else throw new CommandException("The entered name is not correct");
+        if (appointmentdate != null) {
+            appointment.setAppointmentData(LocalDateTime.parse(appointmentdate));
+        } else throw new CommandException("The entered name is not correct");
+
 
         System.out.println(appointment);
 

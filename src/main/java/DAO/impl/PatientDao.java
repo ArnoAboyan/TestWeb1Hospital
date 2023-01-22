@@ -4,6 +4,7 @@ import DAO.DAOException;
 import DAO.EntityDAO;
 import Util.AttributFinal;
 import Util.ConnectionPool;
+import entitys.Doctor;
 import entitys.Patient;
 
 import java.sql.Connection;
@@ -335,5 +336,30 @@ public class PatientDao implements EntityDAO<Integer, Patient> {
         return patientList;
     }
 
+    public boolean isExistById(int patientid) throws DAOException {
+        Patient patient = new Patient();
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.CHECK_PATIENT_AVAILABILITY_BY_ID);) {
+            preparedStatement.setInt(1, patientid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                patient.setPatientId(resultSet.getInt("patient_id"));
+            }
+
+            if (patient.getPatientId() > 0) {
+                //if exist
+                return true;
+            } else {
+                //if not exist
+                return false;
+            }
+
+        } catch (SQLException e) {
+//            logger.error("Can not do isExistEmail, SQLException = " + e.getMessage());
+            throw new DAOException(e);
+        }
+    }
 }
 

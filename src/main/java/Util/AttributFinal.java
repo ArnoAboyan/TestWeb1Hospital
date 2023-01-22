@@ -74,6 +74,9 @@ public class AttributFinal {
 
    //valifdation
     public static final String  CHECK_DOCTOR_AVAILABILITY_BY_EMAIL = "SELECT * FROM doctors WHERE login=?";
+    public static final String  CHECK_DOCTOR_AVAILABILITY_BY_ID = "SELECT * FROM doctors WHERE doctor_id=?";
+    public static final String  CHECK_PATIENT_AVAILABILITY_BY_ID = "SELECT * FROM patients WHERE patient_id=?";
+    public static final String  CHECK_APPOINTMENT_AVAILABILITY_BY_ID = "SELECT * FROM appointments WHERE appointment_id=?";
 
 }
 

@@ -239,6 +239,7 @@
                                                                     key="admin_jsp.patientlistEnterappointmentdata"/>
                                                         </label>
                                                         <input type="datetime-local" name="appointmentdata" required>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"

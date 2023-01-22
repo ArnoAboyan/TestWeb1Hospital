@@ -5,6 +5,7 @@ import DAO.EntityDAO;
 import Util.AttributFinal;
 import Util.ConnectionPool;
 import entitys.Appointment;
+import entitys.Doctor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -220,4 +221,34 @@ public class AppointmentDao implements EntityDAO<Integer ,Appointment> {
 
         return result;
     }
+
+    public boolean isExist(int appointmentId) throws DAOException {
+
+
+        Appointment appointment = new Appointment();
+
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AttributFinal.CHECK_APPOINTMENT_AVAILABILITY_BY_ID);) {
+            preparedStatement.setInt(1, appointmentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                appointment.setAppointmentId(resultSet.getInt("appointment_id"));
+            }
+
+            if (appointment.getAppointmentId() != null) {
+                //if exist
+                return true;
+            } else {
+                //if not exist
+                return false;
+            }
+
+        } catch (SQLException e) {
+//            logger.error("Can not do isExistEmail, SQLException = " + e.getMessage());
+            throw new DAOException(e);
+        }
+
+    }
+
 }
